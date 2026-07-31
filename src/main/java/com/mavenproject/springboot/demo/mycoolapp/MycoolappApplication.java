@@ -1,5 +1,6 @@
 package com.mavenproject.springboot.demo.mycoolapp;
 
+import com.mavenproject.springboot.demo.mycoolapp.rest.FunRestController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
