@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FunRestController {
 
-    // retrieve a value from application.properties syntax, assigning it to var myName
+    // retrieve a value from application.properties, assigning it to var myName
     @Value("${my.name}")
     private String myName;
 
@@ -21,8 +21,8 @@ public class FunRestController {
 
     // expose test endpoints
     @GetMapping("/test")
-    public String test() {
-        return "test";
+    public String getMyName() {
+        return "My name is " + myName + " and I'm Spider-man";
     }
 
     // expose new endpoint for "workout"
