@@ -1,6 +1,8 @@
 package com.mavenproject.springboot.demo.mycoolapp.rest;
 
 import com.mavenproject.springboot.demo.mycoolapp.common.Coach;
+import com.mavenproject.springboot.demo.mycoolapp.common.PaymentService;
+import com.mavenproject.springboot.demo.mycoolapp.common.PaypalPayment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +17,21 @@ public class FunRestController {
 
     // define a private field for the dependency
     private Coach myCoach;
+    private PaymentService paymentService;
 
-    // constructor for dependency injection
+    // constructor injection
     @Autowired
     public FunRestController(Coach theCoach) {
         myCoach = theCoach;
     }
 
-    // expose "/" return "Hello World"
+    // setter injection
+    @Autowired
+    public void setPaymentService(PaymentService thePaymentService) {
+        paymentService = thePaymentService;
+    }
 
+    // expose "/" return "Hello World"
     @GetMapping("/")
     public String sayHello() {
         return "Hello World!";
@@ -47,6 +55,14 @@ public class FunRestController {
     @GetMapping("/weeklyworkout")
     public String getWeeklyWorkout() {
         return myCoach.getWeeklyWorkout();
+    }
+
+    // expose new endpoint payment
+    // experimenting PaymentService Interface
+    // Method that return from PaypalPayment
+    @GetMapping("/paypalpayment")
+    public String getPayment() {
+        return paymentService.pay();
     }
 
 
