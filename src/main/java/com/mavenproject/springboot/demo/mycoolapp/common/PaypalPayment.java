@@ -1,8 +1,10 @@
 package com.mavenproject.springboot.demo.mycoolapp.common;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
+@Primary
 public class PaypalPayment implements PaymentService{
     @Override
     public String pay() {

@@ -4,10 +4,13 @@ import com.mavenproject.springboot.demo.mycoolapp.common.Coach;
 import com.mavenproject.springboot.demo.mycoolapp.common.PaymentService;
 import com.mavenproject.springboot.demo.mycoolapp.common.PaypalPayment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+// Rest Controller returns the value as the HTTP response body. Not for returning a page
+// for API
 @RestController
 public class FunRestController {
 
@@ -21,7 +24,7 @@ public class FunRestController {
 
     // constructor injection
     @Autowired
-    public FunRestController(Coach theCoach) {
+    public FunRestController(@Qualifier("trackCoach") Coach theCoach) {
         myCoach = theCoach;
     }
 
