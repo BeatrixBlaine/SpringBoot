@@ -21,6 +21,7 @@ public class FunRestController {
     // define a private field for the dependency
     private Coach myCoach;
     private PaymentService paymentService;
+    private PaymentService anotherPaymentService;
 
     // constructor injection
     @Autowired
@@ -31,8 +32,10 @@ public class FunRestController {
 
     // setter injection
     @Autowired
-    public void setPaymentService(PaymentService thePaymentService) {
+    public void setPaymentService(@Qualifier("paypalPayment") PaymentService theAnotherPaymentService,
+                                  @Qualifier("paypalPayment") PaymentService thePaymentService) {
         paymentService = thePaymentService;
+        anotherPaymentService = theAnotherPaymentService;
     }
 
     // expose "/" return "Hello World"
@@ -65,8 +68,15 @@ public class FunRestController {
     // experimenting PaymentService Interface
     // Method that return from PaypalPayment
     @GetMapping("/paypalpayment")
-    public String getPayment() {
+    public String getPaypalPayment() {
         return paymentService.pay();
+    }
+
+    @GetMapping("/check")
+    public String check() {
+        return "Comparing beans: paymentService == anotherPaymentService, " + (paymentService == anotherPaymentService);
+        // true because of singleton beans scope, its pointing to the same bean.
+        // false if you have @Scope Prototype annotations, it create new object(beans) for each injection
     }
 
 
