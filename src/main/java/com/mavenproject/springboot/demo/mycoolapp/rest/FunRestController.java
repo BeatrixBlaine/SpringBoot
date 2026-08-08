@@ -25,6 +25,7 @@ public class FunRestController {
     // constructor injection
     @Autowired
     public FunRestController(@Qualifier("trackCoach") Coach theCoach) {
+        System.out.println("The constructor: " + getClass().getSimpleName());
         myCoach = theCoach;
     }
 
