@@ -1,5 +1,6 @@
 package com.mavenproject.springboot.demo.mycoolapp.rest;
 
+import com.mavenproject.springboot.demo.mycoolapp.common.BakeryService;
 import com.mavenproject.springboot.demo.mycoolapp.common.Coach;
 import com.mavenproject.springboot.demo.mycoolapp.common.PaymentService;
 import com.mavenproject.springboot.demo.mycoolapp.common.PaypalPayment;
@@ -20,14 +21,20 @@ public class FunRestController {
 
     // define a private field for the dependency
     private Coach myCoach;
+
     private PaymentService paymentService;
     private PaymentService anotherPaymentService;
 
+    private BakeryService bakeryService;
+
     // constructor injection
+    // custom bean "baking"
     @Autowired
-    public FunRestController(@Qualifier("trackCoach") Coach theCoach) {
+    public FunRestController(@Qualifier("trackCoach") Coach theCoach,
+                             @Qualifier("baking") BakeryService theBakeryService) {
         System.out.println("The constructor: " + getClass().getSimpleName());
         myCoach = theCoach;
+        bakeryService = theBakeryService;
     }
 
     // setter injection
@@ -37,6 +44,7 @@ public class FunRestController {
         paymentService = thePaymentService;
         anotherPaymentService = theAnotherPaymentService;
     }
+
 
     // expose "/" return "Hello World"
     @GetMapping("/")
@@ -77,6 +85,14 @@ public class FunRestController {
         return "Comparing beans: paymentService == anotherPaymentService, " + (paymentService == anotherPaymentService);
         // true because of singleton beans scope, its pointing to the same bean.
         // false if you have @Scope Prototype annotations, it create new object(beans) for each injection
+    }
+
+    // expose new endpoint baking
+    // experimenting BakeryService Interface
+    // Method that return from Croissant
+    @GetMapping("/baking")
+    public String getBake() {
+        return bakeryService.getBake();
     }
 
 
