@@ -1,7 +1,7 @@
 package com.mavenproject.springboot.demo.mycoolapp.config;
 
-import com.mavenproject.springboot.demo.mycoolapp.common.BakeryService;
-import com.mavenproject.springboot.demo.mycoolapp.common.Croissant;
+import com.mavenproject.springboot.demo.mycoolapp.common.bakery.BakeryService;
+import com.mavenproject.springboot.demo.mycoolapp.common.bakery.Croissant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

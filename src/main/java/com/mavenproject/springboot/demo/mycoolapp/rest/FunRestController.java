@@ -1,9 +1,8 @@
 package com.mavenproject.springboot.demo.mycoolapp.rest;
 
-import com.mavenproject.springboot.demo.mycoolapp.common.BakeryService;
-import com.mavenproject.springboot.demo.mycoolapp.common.Coach;
-import com.mavenproject.springboot.demo.mycoolapp.common.PaymentService;
-import com.mavenproject.springboot.demo.mycoolapp.common.PaypalPayment;
+import com.mavenproject.springboot.demo.mycoolapp.common.bakery.BakeryService;
+import com.mavenproject.springboot.demo.mycoolapp.common.coach.Coach;
+import com.mavenproject.springboot.demo.mycoolapp.common.payment.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,6 @@
-package com.mavenproject.springboot.demo.mycoolapp.common;
+package com.mavenproject.springboot.demo.mycoolapp.common.payment;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

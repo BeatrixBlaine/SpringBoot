@@ -1,6 +1,5 @@
-package com.mavenproject.springboot.demo.mycoolapp.common;
+package com.mavenproject.springboot.demo.mycoolapp.common.coach;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component

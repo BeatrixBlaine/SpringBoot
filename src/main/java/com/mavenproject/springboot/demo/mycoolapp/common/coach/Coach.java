@@ -1,4 +1,4 @@
-package com.mavenproject.springboot.demo.mycoolapp.common;
+package com.mavenproject.springboot.demo.mycoolapp.common.coach;
 
 
 public interface Coach {
