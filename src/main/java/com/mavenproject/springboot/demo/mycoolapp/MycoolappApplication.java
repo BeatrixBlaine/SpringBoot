@@ -1,5 +1,7 @@
 package com.mavenproject.springboot.demo.mycoolapp;
 
+import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
+import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import com.mavenproject.springboot.demo.mycoolapp.rest.FunRestController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,11 +18,25 @@ public class MycoolappApplication {
 		SpringApplication.run(MycoolappApplication.class, args);
 	}
 
+	// Inject StudentDAO to this bean
 	@Bean
-	public CommandLineRunner commandLineRunner(String[] args) {
+	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			System.out.println("Hello World!");
+			createStudent(studentDAO);
 		};
+	}
+
+	private void createStudent(StudentDAO studentDAO) {
+		// create the student object
+		System.out.println("Creating new student object ...");
+		Student tempStudent = new Student("Addina", "Wangsaatmaja","addinawangsaatmaja@gmail.com");
+
+		// save the student object
+		System.out.println("Saving the student ...");
+		studentDAO.save(tempStudent);
+
+		// display the id of the saved student
+		System.out.println("Saved student ID: " + tempStudent.getId());
 	}
 
 }
