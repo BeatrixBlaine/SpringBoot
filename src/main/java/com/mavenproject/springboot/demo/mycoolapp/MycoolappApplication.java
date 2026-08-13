@@ -2,7 +2,6 @@ package com.mavenproject.springboot.demo.mycoolapp;
 
 import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
-import com.mavenproject.springboot.demo.mycoolapp.rest.FunRestController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -22,14 +21,49 @@ public class MycoolappApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			createStudent(studentDAO);
+			// createStudent(studentDAO);
+			// createMultipleStudents(studentDAO);
+			// readStudent(studentDAO);
 		};
+	}
+
+	private void readStudent(StudentDAO studentDAO) {
+		// create student
+		System.out.println("Creating new student ...");
+		Student tempStudent = new Student("Cita","Dwi","citadwip@gmail.com");
+
+		// save
+		System.out.println("Saving new student ...");
+		studentDAO.save(tempStudent);
+
+		// display id & name
+		System.out.println("Saved. Generated id: " + tempStudent.getId());
+		System.out.println("Student name: " + tempStudent.getFirstName());
+
+		// read
+		Student myStudent = studentDAO.findById(tempStudent.getId());
+		System.out.println("Found the student: " + myStudent); // toString() method in class Student
+	}
+
+	private void createMultipleStudents(StudentDAO studentDAO) {
+		// create multiple students
+		System.out.println("Creating new multiple student objects ...");
+		Student tempStudent1 = new Student("Addina", "Wangsaatmaja","addinawangsaatmaja@gmail.com");
+		Student tempStudent2 = new Student("Irsyad", "Ibrahim","irsyadibrahim@gmail.com");
+		Student tempStudent3 = new Student("As-Zahrah", "Heinrich","sarah@gmail.com");
+
+		// save the objects
+		studentDAO.save(tempStudent1);
+		studentDAO.save(tempStudent2);
+		studentDAO.save(tempStudent3);
+		System.out.println("Saving the students ...");
+
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
 		// create the student object
 		System.out.println("Creating new student object ...");
-		Student tempStudent = new Student("Addina", "Wangsaatmaja","addinawangsaatmaja@gmail.com");
+		Student tempStudent = new Student("Hani", "Maitssa","hani@gmail.com");
 
 		// save the student object
 		System.out.println("Saving the student ...");
