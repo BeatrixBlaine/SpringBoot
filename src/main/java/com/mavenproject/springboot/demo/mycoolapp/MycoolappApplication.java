@@ -2,6 +2,7 @@ package com.mavenproject.springboot.demo.mycoolapp;
 
 import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
+import org.springframework.beans.factory.BeanRegistrarDsl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,8 +29,26 @@ public class MycoolappApplication {
 			// readStudent(studentDAO);
 			// queryStudents(studentDAO);
 			// specialQueryStudents(studentDAO);
-			queryForStudentsByLastName(studentDAO);
+			// queryForStudentsByLastName(studentDAO);
+			updateStudent(studentDAO);
 		};
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		// retrieve student by id
+		int studentID = 3000;
+		System.out.println("Getting student with id : " + studentID);
+		Student myStudent = studentDAO.findById(studentID);
+
+		// change firstName to "Scooby"
+		myStudent.setFirstName("Hana");
+		System.out.println("Updating student ...");
+
+		// update the student
+		studentDAO.update(myStudent);
+
+		// display the updated student
+		System.out.println("Updated student: " + myStudent);
 	}
 
 	private void queryForStudentsByLastName(StudentDAO studentDAO) {
