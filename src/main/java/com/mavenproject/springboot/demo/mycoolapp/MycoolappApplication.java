@@ -30,8 +30,31 @@ public class MycoolappApplication {
 			// queryStudents(studentDAO);
 			// specialQueryStudents(studentDAO);
 			// queryForStudentsByLastName(studentDAO);
-			updateStudent(studentDAO);
+			// updateStudent(studentDAO);
+			// deleteStudent(studentDAO);
+			// deleteAllStudents(studentDAO);
 		};
+	}
+
+	private void deleteAllStudents(StudentDAO studentDAO) {
+		int numRowsDeleted = studentDAO.deleteAll();
+		if (numRowsDeleted == 0) {
+			System.out.println("There's no data to be deleted.");
+		} else {
+			System.out.println("Deleting all students ...");
+			System.out.println("Deleted rows: " + numRowsDeleted);
+		}
+	}
+
+	private void deleteStudent(StudentDAO studentDAO) {
+		int studentId = 3001;
+		Student myStudent = studentDAO.findById(studentId);
+		if (myStudent == null) {
+			System.out.println("There's no student with given ID: " + studentId);
+		} else {
+			studentDAO.delete(studentId);
+			System.out.println("Deleting student with ID: " + studentId);
+		}
 	}
 
 	private void updateStudent(StudentDAO studentDAO) {
