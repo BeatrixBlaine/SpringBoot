@@ -25,7 +25,7 @@ public class MycoolappApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO, StaffDAO staffDAO) {
 		return runner -> {
-			createStudent(studentDAO);
+			// createStudent(studentDAO);
 			// createMultipleStudents(studentDAO);
 			// readStudent(studentDAO);
 			// queryStudents(studentDAO);
