@@ -2,10 +2,11 @@ package com.mavenproject.springboot.demo.mycoolapp.rest;
 
 import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.mavenproject.springboot.demo.mycoolapp.exception.StudentErrorResponse;
+import com.mavenproject.springboot.demo.mycoolapp.exception.StudentNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class StudentRestController {
 
-    private final StudentDAO studentDAO; // make sure it's final
+    private final StudentDAO studentDAO;// make sure it's final
 
     public StudentRestController(StudentDAO studentDAO) {
         this.studentDAO = studentDAO;
@@ -26,7 +27,37 @@ public class StudentRestController {
 
     @GetMapping("/students/{studentId}")
     public Student getStudent(@PathVariable int studentId) {
-        return studentDAO.findById(studentId);
+
+        Student student = studentDAO.findById(studentId);
+
+        if (student == null) {
+            throw new StudentNotFoundException("Student ID not found - " + studentId);
+        }
+
+        return student;
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc) {
+        // create a StudentErrorResponse
+        StudentErrorResponse error = new StudentErrorResponse();
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        // return ResponseEntity
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(Exception exc) {
+
+        StudentErrorResponse error = new StudentErrorResponse();
+        error.setStatus(HttpStatus.BAD_REQUEST.value());
+        error.setMessage(exc.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
 }
