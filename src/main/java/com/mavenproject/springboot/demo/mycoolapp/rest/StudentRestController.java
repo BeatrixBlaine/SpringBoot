@@ -37,27 +37,12 @@ public class StudentRestController {
         return student;
     }
 
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException exc) {
-        // create a StudentErrorResponse
-        StudentErrorResponse error = new StudentErrorResponse();
-        error.setStatus(HttpStatus.NOT_FOUND.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
+    @PostMapping("/students")
+    public Student addStudent(@RequestBody Student student) {
 
-        // return ResponseEntity
-        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
-    }
+        studentDAO.save(student);
 
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleException(Exception exc) {
-
-        StudentErrorResponse error = new StudentErrorResponse();
-        error.setStatus(HttpStatus.BAD_REQUEST.value());
-        error.setMessage(exc.getMessage());
-        error.setTimeStamp(System.currentTimeMillis());
-
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return student;
     }
 
 }
