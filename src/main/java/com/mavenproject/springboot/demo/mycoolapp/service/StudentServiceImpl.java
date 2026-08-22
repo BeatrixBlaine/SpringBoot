@@ -1,7 +1,9 @@
 package com.mavenproject.springboot.demo.mycoolapp.service;
 
 import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
+import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAOImpl;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    @Transactional // Annotations for changing/updating a data in databases
     public void save(Student theStudent) {
         studentDAO.save(theStudent);
     }
@@ -41,16 +44,19 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void update(Student theStudent) {
-        studentDAO.update(theStudent);
+    @Transactional
+    public Student update(Student theStudent) {
+        return studentDAO.update(theStudent);
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         studentDAO.delete(id);
     }
 
     @Override
+    @Transactional
     public int deleteAll() {
         return studentDAO.deleteAll();
     }

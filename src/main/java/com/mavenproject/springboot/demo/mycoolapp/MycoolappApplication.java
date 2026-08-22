@@ -85,10 +85,10 @@ public class MycoolappApplication {
 		System.out.println("Updating student ...");
 
 		// update the student
-		studentDAO.update(myStudent);
+		Student student = studentDAO.update(myStudent);
 
 		// display the updated student
-		System.out.println("Updated student: " + myStudent);
+		System.out.println("Updated student: " + student);
 	}
 
 	private void queryForStudentsByLastName(StudentDAO studentDAO) {

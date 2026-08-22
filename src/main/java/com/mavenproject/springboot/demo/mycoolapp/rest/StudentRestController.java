@@ -1,6 +1,5 @@
 package com.mavenproject.springboot.demo.mycoolapp.rest;
 
-import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import com.mavenproject.springboot.demo.mycoolapp.exception.StudentNotFoundException;
 import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
@@ -52,5 +51,6 @@ public class StudentRestController {
 
         return students;
     }
+
 
 }
