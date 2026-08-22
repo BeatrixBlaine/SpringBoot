@@ -63,6 +63,10 @@ public class Student {
         this.email = email;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     // define toString() method
 
     @Override
