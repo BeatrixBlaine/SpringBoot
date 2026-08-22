@@ -2,10 +2,8 @@ package com.mavenproject.springboot.demo.mycoolapp.rest;
 
 import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
-import com.mavenproject.springboot.demo.mycoolapp.exception.StudentErrorResponse;
 import com.mavenproject.springboot.demo.mycoolapp.exception.StudentNotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,21 +12,21 @@ import java.util.List;
 @RequestMapping("/api")
 public class StudentRestController {
 
-    private final StudentDAO studentDAO;// make sure it's final
+    private final StudentService studentService;// make sure it's final
 
-    public StudentRestController(StudentDAO studentDAO) {
-        this.studentDAO = studentDAO;
+    public StudentRestController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     @GetMapping("/students")
     public List<Student> getStudents() {
-        return studentDAO.findAll();
+        return studentService.findAll();
     }
 
     @GetMapping("/students/{studentId}")
     public Student getStudent(@PathVariable int studentId) {
 
-        Student student = studentDAO.findById(studentId);
+        Student student = studentService.findById(studentId);
 
         if (student == null) {
             throw new StudentNotFoundException("Student ID not found - " + studentId);
@@ -40,9 +38,19 @@ public class StudentRestController {
     @PostMapping("/students")
     public Student addStudent(@RequestBody Student student) {
 
-        studentDAO.save(student);
+        studentService.save(student);
 
         return student;
+    }
+
+    @PostMapping("/students/batch")
+    public List<Student> addStudents(@RequestBody List<Student> students) {
+
+        for (Student student : students) {
+            studentService.save(student);
+        }
+
+        return students;
     }
 
 }

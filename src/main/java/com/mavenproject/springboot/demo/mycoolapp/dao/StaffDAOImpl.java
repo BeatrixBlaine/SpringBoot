@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class StaffDAOImpl implements StaffDAO{
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Autowired
     public StaffDAOImpl(EntityManager entityManager) {

@@ -1,7 +1,6 @@
 package com.mavenproject.springboot.demo.mycoolapp.dao;
 
 import com.mavenproject.springboot.demo.mycoolapp.entity.Employee;
-import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,7 @@ import java.util.List;
 @Repository
 public class EmployeeDAOImpl implements EmployeeDAO{
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Autowired
     public EmployeeDAOImpl(EntityManager entityManager) {

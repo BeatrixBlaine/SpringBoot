@@ -15,7 +15,7 @@ import java.util.List;
 public class StudentDAOImpl implements StudentDAO{
 
     // define field for entity manager
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     // inject entity manager using constructor injection
     @Autowired
