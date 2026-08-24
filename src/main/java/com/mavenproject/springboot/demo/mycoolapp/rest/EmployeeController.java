@@ -93,4 +93,16 @@ public class EmployeeController {
 
         return theEmployee;
     }
+
+    // add new batch employees
+    @PostMapping("/employees/batch")
+    public List<Employee> addEmployees(@RequestBody List<Employee> theEmployees) {
+
+        // saving list of employees
+        for(Employee employees : theEmployees){
+            employeeService.save(employees);
+        }
+
+        return theEmployees;
+    }
 }
