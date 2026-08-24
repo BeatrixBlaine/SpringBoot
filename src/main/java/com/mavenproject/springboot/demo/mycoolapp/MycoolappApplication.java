@@ -1,8 +1,6 @@
 package com.mavenproject.springboot.demo.mycoolapp;
 
-import com.mavenproject.springboot.demo.mycoolapp.dao.StaffDAO;
 import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
-import com.mavenproject.springboot.demo.mycoolapp.entity.Staff;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +21,7 @@ public class MycoolappApplication {
 
 	// Inject StudentDAO to this bean
 	@Bean
-	public CommandLineRunner commandLineRunner(StudentDAO studentDAO, StaffDAO staffDAO) {
+	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
 			// createStudent(studentDAO);
 			// createMultipleStudents(studentDAO);
@@ -34,23 +32,7 @@ public class MycoolappApplication {
 			// updateStudent(studentDAO);
 			// deleteStudent(studentDAO);
 			// deleteAllStudents(studentDAO);
-			// createMultipleStaff(staffDAO);
 		};
-	}
-
-	private void createMultipleStaff(StaffDAO staffDAO) {
-		// create multiple students
-		System.out.println("Creating new multiple staff objects ...");
-		Staff tempStaff1 = new Staff("Cita","Dwi","Cashier","Bandung");
-		Staff tempStaff2 = new Staff("Irsyad","Ibrahim","Baker","Bandung");
-		Staff tempStaff3 = new Staff("Addina","Wangsaatmaja","Owner","Bandung");
-
-		// saving
-		System.out.println("Saving multiple staff ...");
-		staffDAO.save(tempStaff1);
-		staffDAO.save(tempStaff2);
-		staffDAO.save(tempStaff3);
-
 	}
 
 	private void deleteAllStudents(StudentDAO studentDAO) {
