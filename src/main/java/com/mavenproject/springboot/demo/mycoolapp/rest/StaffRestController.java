@@ -1,6 +1,5 @@
 package com.mavenproject.springboot.demo.mycoolapp.rest;
 
-import com.mavenproject.springboot.demo.mycoolapp.entity.Employee;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Staff;
 import com.mavenproject.springboot.demo.mycoolapp.service.StaffService;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +24,11 @@ public class StaffRestController {
         return staffService.findAll();
     }
 
+    @GetMapping("/staffs/{staffId}")
+    public Staff getStaff(@PathVariable int staffId) {
+        return staffService.findById(staffId);
+    }
+
     @PostMapping("/staffs")
     public Staff addStaff(@RequestBody Staff theStaff) {
 
@@ -35,13 +39,7 @@ public class StaffRestController {
 
     @PostMapping("/staffs/batch")
     public List<Staff> addStaffs(@RequestBody List<Staff> theStaffs) {
-
-        // saving list of employees
-        for(Staff staffs : theStaffs){
-            staffService.save(staffs);
-        }
-
-        return theStaffs;
+        return staffService.saveAll(theStaffs);
     }
 
 }

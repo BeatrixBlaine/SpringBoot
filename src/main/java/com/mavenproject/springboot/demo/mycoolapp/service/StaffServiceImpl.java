@@ -47,4 +47,9 @@ public class StaffServiceImpl implements StaffService {
     public void deleteById(int id) {
         staffRepository.deleteById(id);
     }
+
+    @Override
+    public List<Staff> saveAll(List<Staff> staffList) {
+        return staffRepository.saveAll(staffList);
+    }
 }

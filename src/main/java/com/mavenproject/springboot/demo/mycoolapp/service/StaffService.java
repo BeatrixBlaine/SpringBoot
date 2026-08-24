@@ -10,5 +10,6 @@ public interface StaffService {
     Staff findById(int id);
     Staff save(Staff staff);
     void deleteById(int id);
+    List<Staff> saveAll(List<Staff> staffList);
 
 }
