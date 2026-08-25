@@ -45,6 +45,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public void deleteById(int id) {
+        findById(id);
         staffRepository.deleteById(id);
     }
 
