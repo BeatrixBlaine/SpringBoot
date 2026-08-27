@@ -4,7 +4,6 @@ package com.mavenproject.springboot.demo.mycoolapp.common.bakery;
 public class Croissant implements BakeryService{
 
     public Croissant() {
-        System.out.println("In constructor: " + getClass().getSimpleName());
     }
 
     @Override

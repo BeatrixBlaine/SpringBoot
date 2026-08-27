@@ -47,7 +47,7 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<!-- ADD SECURITY FOR ACTUATOR ENDPOINTS -->
+		<!-- ADD SECURITY FOR ENDPOINTS -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>

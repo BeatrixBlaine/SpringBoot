@@ -31,7 +31,6 @@ public class FunRestController {
     @Autowired
     public FunRestController(@Qualifier("trackCoach") Coach theCoach,
                              @Qualifier("baking") BakeryService theBakeryService) {
-        System.out.println("The constructor: " + getClass().getSimpleName());
         myCoach = theCoach;
         bakeryService = theBakeryService;
     }

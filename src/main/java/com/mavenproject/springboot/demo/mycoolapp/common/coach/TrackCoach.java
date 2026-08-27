@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class TrackCoach implements Coach{
 
     public TrackCoach() {
-        System.out.println("In constructor: " + getClass().getSimpleName());
     }
 
     // define our init method
