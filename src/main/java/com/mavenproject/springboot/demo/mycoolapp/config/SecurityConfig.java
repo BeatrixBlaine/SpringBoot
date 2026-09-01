@@ -5,9 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,7 +14,7 @@ import javax.sql.DataSource;
 @Configuration
 public class SecurityConfig {
 
-    // create users for api secutiry
+    // create users for api security
     /* @Bean
     public InMemoryUserDetailsManager userDetailsManager() {
 
@@ -56,6 +53,8 @@ public class SecurityConfig {
         // Manage authorized user for HttpMethod
         http.authorizeHttpRequests(configurer ->
                 configurer
+                        // PRIVATE
+                        // Employees
                         .requestMatchers(HttpMethod.GET, "/api/employees").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/employees/**").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
                         .requestMatchers(HttpMethod.POST, "/api/employees").hasAnyRole("OWNER","MANAGER")
@@ -64,7 +63,16 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
 
-                        // Enabling accessing all endpoints
+                        // Staff
+                        .requestMatchers(HttpMethod.GET, "/api/staffs").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.GET, "/api/staffs/**").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/staffs").hasAnyRole("OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/staffs").hasAnyRole("OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.PATCH, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
+
+                        // PUBLIC
                         .requestMatchers("/").permitAll()
                         .anyRequest().authenticated()
         );
