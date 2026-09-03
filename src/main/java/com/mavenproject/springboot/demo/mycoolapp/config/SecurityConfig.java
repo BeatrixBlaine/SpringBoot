@@ -43,6 +43,18 @@ public class SecurityConfig {
     // JDBC Authentication - users stored in the database
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
+
+        // for custom tables schema
+        /*
+        JdbcUserDetailsManager theUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        theUserDetailsManager
+                .setUsersByUsernameQuery("select username, password, active from users where username=?");
+
+        theUserDetailsManager
+                .setAuthoritiesByUsernameQuery("select username, authority from authorities where username=?");
+        */
+
         return new JdbcUserDetailsManager(dataSource);
     }
 
