@@ -3,11 +3,14 @@
 
 <head>
     <title>Thymeleaf</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 
 <body>
 
-    <p th:text="'Time on the server is ' + ${TheDate}"></p>
+    <p th:text="'Time on the server is ' + ${TheDate}" class="funny"></p>
 
 </body>
 
