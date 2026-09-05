@@ -10,7 +10,7 @@
 
 <body>
 
-    <p>Hello World!</p>
+    <p th:text="'Time on the server is ' + ${TheDate}" class="funny"></p>
 
 </body>
 
