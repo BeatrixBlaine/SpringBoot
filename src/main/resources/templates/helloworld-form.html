@@ -7,15 +7,24 @@
 </head>
 <body>
 
+    <p>Process Form One</p>
     <form th:action="@{/home/processForm}" method="GET">
         <input type="text" name="employeeName" placeholder="What is your name?"/>
         <input type="submit" value="Submit"/>
     </form>
     <br>
+    <p>Process Form Two</p>
     <form th:action="@{/home/processFormTwo}" method="GET">
         <input type="text" name="employeeName" placeholder="What is your name?"/>
         <input type="submit" value="Submit"/>
     </form>
+    <br>
+    <p>Process Form Three</p>
+    <form th:action="@{/home/processFormThree}" method="GET">
+        <input type="text" name="employeeName" placeholder="What is your name?"/>
+        <input type="submit" value="Submit"/>
+    </form>
+
 
 </body>
 </html>

@@ -45,7 +45,7 @@ public class FunRestController {
 
 
     // expose "/" return "Hello World"
-    @GetMapping("/hello")
+    @GetMapping("/sayHello")
     public String sayHello() {
         return "Hello World!";
     }
