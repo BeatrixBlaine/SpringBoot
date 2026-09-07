@@ -22,6 +22,9 @@ public class HomeController {
     @Value("${gender}")
     private List<String> gender;
 
+    @Value("${hobbies}")
+    private List<String> hobbies;
+
     // Employee Service
     private final EmployeeService employeeService;
 
@@ -52,6 +55,7 @@ public class HomeController {
         model.addAttribute("employee", employee);
         model.addAttribute("countries", countries);
         model.addAttribute("gender", gender);
+        model.addAttribute("hobbies", hobbies);
 
         return "employee-form";
     }

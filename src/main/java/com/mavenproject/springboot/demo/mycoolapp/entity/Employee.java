@@ -28,8 +28,21 @@ public class Employee {
     @Column(name="gender")
     private String gender;
 
+    @ElementCollection
+    private List<String> hobby;
+
 
     public Employee() {
+    }
+
+    public Employee(int id, String firstName, String lastName, String email, String country, String gender, List<String> hobby) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.country = country;
+        this.gender = gender;
+        this.hobby = hobby;
     }
 
     public Employee(String firstName, String lastName, String email, String country, String gender) {
@@ -38,6 +51,14 @@ public class Employee {
         this.email = email;
         this.country = country;
         this.gender = gender;
+    }
+
+    public List<String> getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(List<String> hobby) {
+        this.hobby = hobby;
     }
 
     public String getGender() {
@@ -97,6 +118,7 @@ public class Employee {
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
                 ", gender='" + gender + '\'' +
+                ", hobby=" + hobby +
                 '}';
     }
 }

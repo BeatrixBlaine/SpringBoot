@@ -62,6 +62,13 @@
 
         <br><br>
 
+        Hobby : <input type="checkbox" th:field="*{hobby}"
+                th:each="tempHobby : ${hobbies}"
+                th:value="${tempHobby}"
+                th:text="${tempHobby}" />
+
+        <br><br>
+
         <input type="submit" value="Submit"/>
 
     </form>

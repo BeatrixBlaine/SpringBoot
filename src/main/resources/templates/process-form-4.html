@@ -17,6 +17,14 @@
     <p>Employee country : <span th:text="${employee.country}"></span></p>
     <br>
     <p>Employee gender : <span th:text="${employee.gender}"></span></p>
+    <br>
+    <p>Employee hobbies : </p>
+    <br>
+    <ul>
+        <li th:each="hobby : ${employee.hobby}"
+            th:text="${hobby}">
+        </li>
+    </ul>
 
     <br><a th:href="@{/home/showForm}" class="btn btn-secondary" role="button">Back To Form</a>
 
