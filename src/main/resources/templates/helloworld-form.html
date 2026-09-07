@@ -8,20 +8,30 @@
 <body>
 
     <p>Process Form One</p>
-    <form th:action="@{/home/processForm}" method="GET">
+    <form th:action="@{/home/processForm}" method="POST">
         <input type="text" name="employeeName" placeholder="What is your name?"/>
         <input type="submit" value="Submit"/>
     </form>
     <br>
     <p>Process Form Two</p>
-    <form th:action="@{/home/processFormTwo}" method="GET">
+    <form th:action="@{/home/processFormTwo}" method="POST">
         <input type="text" name="employeeName" placeholder="What is your name?"/>
         <input type="submit" value="Submit"/>
     </form>
     <br>
     <p>Process Form Three</p>
-    <form th:action="@{/home/processFormThree}" method="GET">
+    <form th:action="@{/home/processFormThree}" method="POST">
         <input type="text" name="employeeName" placeholder="What is your name?"/>
+        <input type="submit" value="Submit"/>
+    </form>
+    <p>Process Form Four</p>
+    <form th:action="@{/home/processFormFour}" th:object="${employee}" method="POST">
+        First name : <input type="text" th:field="*{firstName}" placeholder="What is your first name?"/>
+        <br><br>
+        Last name : <input type="text" th:field="*{lastName}" placeholder="What is your last name?"/>
+        <br><br>
+        Email : <input type="text" th:field="*{email}" placeholder="What is your email?"/>
+        <br><br>
         <input type="submit" value="Submit"/>
     </form>
 
