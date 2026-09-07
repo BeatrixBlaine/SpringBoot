@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -24,8 +24,11 @@
         <input type="text" name="employeeName" placeholder="What is your name?"/>
         <input type="submit" value="Submit"/>
     </form>
+
     <p>Process Form Four</p>
+
     <form th:action="@{/home/processFormFour}" th:object="${employee}" method="POST">
+
         First name : <input type="text" th:field="*{firstName}" placeholder="What is your first name?"/>
         <br><br>
         Last name : <input type="text" th:field="*{lastName}" placeholder="What is your last name?"/>
@@ -33,11 +36,34 @@
         Email : <input type="text" th:field="*{email}" placeholder="What is your email?"/>
         <br><br>
         Country :
+
             <select th:field="*{country}">
+                <!-- th:each for looping through available countries -->
+                <!-- th:value for sending the value -->
+                <!-- th:text for displaying to the user -->
                 <option th:each="tempCountry : ${countries}" th:value="${tempCountry}" th:text="${tempCountry}" />
             </select>
+
         <br><br>
+
+        Gender :
+
+        <!--
+        <input type="radio" th:field="*{gender}" th:value="Male">Male</input>
+        <input type="radio" th:field="*{gender}" th:value="Female">Female</input>
+        <input type="radio" th:field="*{gender}" th:value="Non-binary">Non-binary</input>
+        -->
+
+        <input type="radio"
+               th:field="*{gender}"
+               th:each="tempGender : ${gender}"
+               th:value="${tempGender}"
+               th:text="${tempGender}" />
+
+        <br><br>
+
         <input type="submit" value="Submit"/>
+
     </form>
 
 

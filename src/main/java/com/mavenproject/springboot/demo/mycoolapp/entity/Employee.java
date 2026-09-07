@@ -2,6 +2,8 @@ package com.mavenproject.springboot.demo.mycoolapp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="employee")
 public class Employee {
@@ -20,18 +22,30 @@ public class Employee {
     @Column(name="email")
     private String email;
 
-    @Column(name = "country")
+    @Column(name="country")
     private String country;
 
-    public Employee() {
+    @Column(name="gender")
+    private String gender;
 
+
+    public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String email, String country) {
+    public Employee(String firstName, String lastName, String email, String country, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.country = country;
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getCountry() {
@@ -82,6 +96,7 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", country='" + country + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

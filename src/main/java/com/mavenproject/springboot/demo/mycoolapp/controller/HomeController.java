@@ -15,9 +15,14 @@ import java.util.List;
 @RequestMapping("/home")
 public class HomeController {
 
+    // custom props
     @Value("${countries}")
     private List<String> countries;
 
+    @Value("${gender}")
+    private List<String> gender;
+
+    // Employee Service
     private final EmployeeService employeeService;
 
     // Employee Injection
@@ -46,8 +51,9 @@ public class HomeController {
         // add employee so it can be accessed by helloword-form.html
         model.addAttribute("employee", employee);
         model.addAttribute("countries", countries);
+        model.addAttribute("gender", gender);
 
-        return "helloworld-form";
+        return "employee-form";
     }
 
     // method to process the HTML form
@@ -92,9 +98,8 @@ public class HomeController {
 
         employeeService.save(employee);
 
-        System.out.println("Employee first name : " + employee.getFirstName());
-        System.out.println("Employee last name : " + employee.getLastName());
-        System.out.println("Employee email : " + employee.getEmail());
+        System.out.println("Saving new Employee . . .");
+        System.out.println("Name : " + employee.getFirstName());
 
         return "process-form-4";
     }
