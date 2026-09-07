@@ -4,13 +4,19 @@ import com.mavenproject.springboot.demo.mycoolapp.entity.Employee;
 import com.mavenproject.springboot.demo.mycoolapp.service.EmployeeService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/home")
 public class HomeController {
+
+    @Value("${countries}")
+    private List<String> countries;
 
     private final EmployeeService employeeService;
 
@@ -39,6 +45,7 @@ public class HomeController {
 
         // add employee so it can be accessed by helloword-form.html
         model.addAttribute("employee", employee);
+        model.addAttribute("countries", countries);
 
         return "helloworld-form";
     }
@@ -85,7 +92,6 @@ public class HomeController {
 
         employeeService.save(employee);
 
-        System.out.println("Employee ID : " + employee.getId());
         System.out.println("Employee first name : " + employee.getFirstName());
         System.out.println("Employee last name : " + employee.getLastName());
         System.out.println("Employee email : " + employee.getEmail());

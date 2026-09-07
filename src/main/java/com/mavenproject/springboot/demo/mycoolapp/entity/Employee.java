@@ -20,14 +20,26 @@ public class Employee {
     @Column(name="email")
     private String email;
 
+    @Column(name = "country")
+    private String country;
+
     public Employee() {
 
     }
 
-    public Employee(String firstName, String lastName, String email) {
+    public Employee(String firstName, String lastName, String email, String country) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.country = country;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getFirstName() {
@@ -69,6 +81,7 @@ public class Employee {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", country='" + country + '\'' +
                 '}';
     }
 }

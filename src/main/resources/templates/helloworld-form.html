@@ -32,6 +32,11 @@
         <br><br>
         Email : <input type="text" th:field="*{email}" placeholder="What is your email?"/>
         <br><br>
+        Country :
+            <select th:field="*{country}">
+                <option th:each="tempCountry : ${countries}" th:value="${tempCountry}" th:text="${tempCountry}" />
+            </select>
+        <br><br>
         <input type="submit" value="Submit"/>
     </form>
 
