@@ -1,6 +1,7 @@
 package com.mavenproject.springboot.demo.mycoolapp.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.util.List;
 
@@ -13,21 +14,30 @@ public class Employee {
     @Column(name="id")
     private int id;
 
+    // @NotNull(message = " required field")
+    // @Size(min = 1, message = " required field")
+    @NotBlank(message = "First name is required")
     @Column(name="first_name")
     private String firstName;
 
+    @NotBlank(message = "Last name is required")
     @Column(name="last_name")
     private String lastName;
 
+    @NotBlank(message = "Email is required")
+    @Email(message = "Please enter a valid email")
     @Column(name="email")
     private String email;
 
+    @NotBlank(message = "Please select a country")
     @Column(name="country")
     private String country;
 
+    @NotBlank(message = "Please select a gender")
     @Column(name="gender")
     private String gender;
 
+    @NotEmpty(message = "Please select at least one hobby")
     @ElementCollection
     private List<String> hobby;
 
@@ -43,14 +53,6 @@ public class Employee {
         this.country = country;
         this.gender = gender;
         this.hobby = hobby;
-    }
-
-    public Employee(String firstName, String lastName, String email, String country, String gender) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.country = country;
-        this.gender = gender;
     }
 
     public List<String> getHobby() {

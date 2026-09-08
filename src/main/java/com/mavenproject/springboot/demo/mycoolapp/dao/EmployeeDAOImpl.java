@@ -34,12 +34,18 @@ public class EmployeeDAOImpl implements EmployeeDAO{
 
     @Override
     public Employee save(Employee employee) {
-        return entityManager.merge(employee);
+        entityManager.persist(employee);
+        return employee;
     }
 
     @Override
     public void deleteById(int id) {
         Employee theEmployee = findById(id);
         entityManager.remove(theEmployee);
+    }
+
+    @Override
+    public Employee update(Employee employee) {
+        return entityManager.merge(employee);
     }
 }

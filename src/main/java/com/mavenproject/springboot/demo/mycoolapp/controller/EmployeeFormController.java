@@ -3,17 +3,19 @@ package com.mavenproject.springboot.demo.mycoolapp.controller;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Employee;
 import com.mavenproject.springboot.demo.mycoolapp.service.EmployeeService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/home")
-public class HomeController {
+@RequestMapping("/employee-form")
+public class EmployeeFormController {
 
     // custom props
     @Value("${countries}")
@@ -30,7 +32,7 @@ public class HomeController {
 
     // Employee Injection
     @Autowired
-    public HomeController(EmployeeService employeeService) {
+    public EmployeeFormController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
@@ -48,11 +50,8 @@ public class HomeController {
     @GetMapping("/showForm")
     public String showForm(Model model) {
 
-        // Create object Employee
-        Employee employee = new Employee();
-
         // add employee so it can be accessed by helloword-form.html
-        model.addAttribute("employee", employee);
+        model.addAttribute("employee", new Employee());
         model.addAttribute("countries", countries);
         model.addAttribute("gender", gender);
         model.addAttribute("hobbies", hobbies);
@@ -98,7 +97,15 @@ public class HomeController {
 
     // Add new Employee, with @ModelAttribute, save it to databases
     @PostMapping("/processFormFour")
-    public String processForm(@ModelAttribute("employee") Employee employee) {
+    public String processForm(@Valid @ModelAttribute("employee") Employee employee,
+                              BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "employee-form";
+        }
+
+        System.out.println("Hobbies: " + employee.getHobby());
+        System.out.println("Has errors: " + bindingResult.hasErrors());
 
         employeeService.save(employee);
 

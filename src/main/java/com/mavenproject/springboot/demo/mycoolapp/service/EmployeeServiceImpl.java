@@ -37,4 +37,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     public void deleteById(int id) {
         employeeDAO.deleteById(id);
     }
+
+    @Override
+    public Employee update(Employee employee) {
+        return employeeDAO.update(employee);
+    }
 }
