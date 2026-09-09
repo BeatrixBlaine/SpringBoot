@@ -6,9 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +38,24 @@ public class EmployeeFormController {
         this.employeeService = employeeService;
     }
 
+    // add form data
+    private void addFormData(Model model) {
+        model.addAttribute("countries", countries);
+        model.addAttribute("gender", gender);
+        model.addAttribute("hobbies", hobbies);
+    }
+
+    // Initbinder - convert trim input strings
+    // remove leading and trailing white spaces
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+
+        webDataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
+
+
     // create mapping for helloworld
     @GetMapping("/hello")
     public String sayHello(Model model) {
@@ -52,9 +72,7 @@ public class EmployeeFormController {
 
         // add employee so it can be accessed by helloword-form.html
         model.addAttribute("employee", new Employee());
-        model.addAttribute("countries", countries);
-        model.addAttribute("gender", gender);
-        model.addAttribute("hobbies", hobbies);
+        addFormData(model);
 
         return "employee-form";
     }
@@ -98,9 +116,10 @@ public class EmployeeFormController {
     // Add new Employee, with @ModelAttribute, save it to databases
     @PostMapping("/processFormFour")
     public String processForm(@Valid @ModelAttribute("employee") Employee employee,
-                              BindingResult bindingResult) {
+                              BindingResult bindingResult, Model model) {
 
         if(bindingResult.hasErrors()) {
+            addFormData(model);
             return "employee-form";
         }
 

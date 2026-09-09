@@ -15,11 +15,14 @@ public class Employee {
     private int id;
 
     // @NotNull(message = " required field")
-    // @Size(min = 1, message = " required field")
+    @Size(min = 2, max = 30, message = "First name must be between 2 and 30 characters")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "First name can only contain letters and spaces")
     @NotBlank(message = "First name is required")
     @Column(name="first_name")
     private String firstName;
 
+    @Size(min = 2, max = 30, message = "Last name must be between 2 and 30 characters")
+    @Pattern(regexp = "^[a-zA-Z ]+$", message = "Last name can only contain letters and spaces")
     @NotBlank(message = "Last name is required")
     @Column(name="last_name")
     private String lastName;
