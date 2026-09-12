@@ -141,4 +141,10 @@ public class EmployeeFormController {
         return "list-employees";
     }
 
+    @PostMapping("/new-employee")
+    public String addNewEmployee(@Valid @ModelAttribute("employee") Employee employee,
+                                 BindingResult bindingResult, Model model) {
+        return "process-form-5";
+    }
+
 }
