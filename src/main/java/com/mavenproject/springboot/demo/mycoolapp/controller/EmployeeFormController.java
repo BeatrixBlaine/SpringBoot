@@ -123,15 +123,22 @@ public class EmployeeFormController {
             return "employee-form";
         }
 
-        System.out.println("Hobbies: " + employee.getHobby());
-        System.out.println("Has errors: " + bindingResult.hasErrors());
-
         employeeService.save(employee);
 
         System.out.println("Saving new Employee . . .");
         System.out.println("Name : " + employee.getFirstName());
 
         return "process-form-4";
+    }
+
+    @GetMapping("/list")
+    public String getAllEmployees(Model model) {
+
+        List<Employee> employees = employeeService.findAll();
+
+        model.addAttribute("employees", employees);
+
+        return "list-employees";
     }
 
 }
