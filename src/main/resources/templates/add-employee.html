@@ -40,7 +40,7 @@
                   class="error"></span>
             </div>
             <div class="mb-4 w-25">
-                <select th:field="*{country}" id="country" class="form-select">
+                <select th:field="*{country}" id="country" class="form-select" required>
                     <option value="">Select Country</option>
 
                     <option th:each="tempCountry : ${countries}"
@@ -55,13 +55,14 @@
                 </div>
             </div>
             <div class="mb-4">
+                <label class="form-label">Gender</label>
                 <div th:each="tempGender : ${gender}"
                      class="form-check">
 
                     <input type="radio"
                            th:field="*{gender}"
                            th:value="${tempGender}"
-                           class="form-check-input">
+                           class="form-check-input" required>
 
                     <label class="form-check-label"
                            th:text="${tempGender}">
@@ -75,13 +76,14 @@
                 </div>
             </div>
             <div class="mb-4">
+                <label class="form-label">Hobbies</label>
                 <div th:each="tempHobby : ${hobbies}"
                      class="form-check">
 
                     <input type="checkbox"
                            th:field="*{hobby}"
                            th:value="${tempHobby}"
-                           class="form-check-input">
+                           class="form-check-input" required>
 
                     <label class="form-check-label"
                            th:text="${tempHobby}">
@@ -94,7 +96,7 @@
                      class="text-danger">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-info col-2">Save</button>
         </form>
 
         <hr>

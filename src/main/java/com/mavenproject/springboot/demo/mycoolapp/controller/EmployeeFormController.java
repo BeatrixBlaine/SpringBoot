@@ -156,8 +156,15 @@ public class EmployeeFormController {
     public String addNewEmployee(@Valid @ModelAttribute("employee") Employee employee,
                                  BindingResult bindingResult, Model model) {
 
+        if(bindingResult.hasErrors()) {
+            addFormData(model);
+            model.addAttribute("employee", new Employee());
+            return "add-employee";
+        }
 
-        return "redirect:/list-employees";
+        employeeService.save(employee);
+
+        return "redirect:/employees/list";
     }
 
 }
