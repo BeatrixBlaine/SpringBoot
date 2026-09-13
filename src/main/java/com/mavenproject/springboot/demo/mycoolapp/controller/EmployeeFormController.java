@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/employee-form")
+@RequestMapping("/employees/")
 public class EmployeeFormController {
 
     // custom props
@@ -131,6 +131,8 @@ public class EmployeeFormController {
         return "process-form-4";
     }
 
+    // THYMELEAF WITH BOOTSTRAP
+
     @GetMapping("/list")
     public String getAllEmployees(Model model) {
 
@@ -141,10 +143,21 @@ public class EmployeeFormController {
         return "list-employees";
     }
 
+    @GetMapping("/add-employee")
+    public String getEmployeeForm(Model model) {
+
+        addFormData(model);
+        model.addAttribute("employee", new Employee());
+
+        return "add-employee";
+    }
+
     @PostMapping("/new-employee")
     public String addNewEmployee(@Valid @ModelAttribute("employee") Employee employee,
                                  BindingResult bindingResult, Model model) {
-        return "process-form-5";
+
+
+        return "redirect:/list-employees";
     }
 
 }

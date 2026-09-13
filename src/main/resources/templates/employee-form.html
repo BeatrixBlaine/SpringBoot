@@ -8,13 +8,13 @@
 <body>
 
     <p>Process Form One</p>
-    <form th:action="@{/employee-form/processForm}" method="POST">
+    <form th:action="@{/employees/processForm}" method="POST">
         <input type="text" name="employeeName" placeholder="What is your name?"/>
         <input type="submit" value="Submit"/>
     </form>
     <br>
     <p>Process Form Two</p>
-    <form th:action="@{/employee-form/processFormTwo}" method="POST">
+    <form th:action="@{/employees/processFormTwo}" method="POST">
         <input type="text" name="employeeName" placeholder="What is your name?"/>
         <input type="submit" value="Submit"/>
     </form>
@@ -27,7 +27,7 @@
 
     <p>Process Form Four</p>
 
-    <form th:action="@{/employee-form/processFormFour}" th:object="${employee}" method="POST">
+    <form th:action="@{/employees/processFormFour}" th:object="${employee}" method="POST">
 
         First name : <input type="text" th:field="*{firstName}" placeholder="What is your first name?"/>
         <span th:if="${#fields.hasErrors('firstName')}"
