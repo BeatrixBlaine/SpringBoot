@@ -143,6 +143,16 @@ public class EmployeeFormController {
         return "employees/list-employees";
     }
 
+    @GetMapping("/list-by-lastname")
+    public String getAllEmployeesByLastName(Model model) {
+
+        List<Employee> employees = employeeService.findAllByLastName();
+
+        model.addAttribute("employees", employees);
+
+        return "employees/list-employees";
+    }
+
     @GetMapping("/add-employee")
     public String getEmployeeForm(Model model) {
 
@@ -162,6 +172,41 @@ public class EmployeeFormController {
         }
 
         employeeService.save(employee);
+
+        return "redirect:/employees/list";
+    }
+
+    @GetMapping("/update-employee")
+    public String updateEmployee(@RequestParam("employeeId") int id,
+                                 Model model){
+
+        Employee employee = employeeService.findById(id);
+
+        model.addAttribute("employee",employee);
+        addFormData(model);
+
+        return "employees/update-form";
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("employee") Employee employee,
+                         BindingResult bindingResult,
+                         Model model) {
+
+        if(bindingResult.hasErrors()) {
+            addFormData(model);
+            return "employees/update-employee";
+        }
+
+        employeeService.update(employee);
+
+        return "redirect:/employees/list";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("employeeId") int id) {
+
+        employeeService.deleteById(id);
 
         return "redirect:/employees/list";
     }

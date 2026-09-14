@@ -48,4 +48,13 @@ public class EmployeeDAOImpl implements EmployeeDAO{
     public Employee update(Employee employee) {
         return entityManager.merge(employee);
     }
+
+    @Override
+    public List<Employee> findAllByLastName() {
+        TypedQuery<Employee> theQuery =
+                entityManager.createQuery("FROM Employee order by lastName ASC", Employee.class);
+
+        // return query results
+        return theQuery.getResultList();
+    }
 }

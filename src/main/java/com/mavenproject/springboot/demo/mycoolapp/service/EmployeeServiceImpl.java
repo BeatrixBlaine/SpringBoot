@@ -39,7 +39,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
+    @Transactional
     public Employee update(Employee employee) {
         return employeeDAO.update(employee);
+    }
+
+    @Override
+    public List<Employee> findAllByLastName() {
+        return employeeDAO.findAllByLastName();
     }
 }

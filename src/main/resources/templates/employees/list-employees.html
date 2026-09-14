@@ -22,6 +22,14 @@
        type="button"
        class="btn btn-primary btn-sm mb-3" method="GET">Add Employee</a>
 
+    <a th:href="@{/employees/list}"
+       type="button"
+       class="btn btn-info btn-sm mb-3" method="GET">Default Order</a>
+
+    <a th:href="@{/employees/list-by-lastname}"
+       type="button"
+       class="btn btn-info btn-sm mb-3" method="GET">Sort By Last Name</a>
+
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -31,6 +39,7 @@
                 <th>Country</th>
                 <th>Gender</th>
                 <th>Hobby</th>
+                <th>Action</th>
             </tr>
         </thead>
 
@@ -41,7 +50,25 @@
                 <td th:text="${tempEmployee.email}"></td>
                 <td th:text="${tempEmployee.country}"></td>
                 <td th:text="${tempEmployee.gender}"></td>
-                <td th:text="${tempEmployee.hobby}"></td>
+                <td th:text="${#strings.listJoin(tempEmployee.hobby, ', ')}"></td>
+                <td>
+                    <a class="btn btn-info btn-sm"
+                       th:href="@{/employees/update-employee(employeeId=${tempEmployee.id})}">
+                        Update</a>
+                    <form th:action="@{/employees/delete}"
+                          method="POST"
+                          class="d-inline">
+
+                        <input type="hidden"
+                               name="employeeId"
+                               th:value="${tempEmployee.id}">
+
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Delete
+                        </button>
+
+                    </form>
+                </td>
             </tr>
         </tbody>
     </table>

@@ -12,4 +12,7 @@ public interface EmployeeDAO {
     void deleteById(int id);
     Employee update(Employee employee);
 
+    // sort by last name
+    List<Employee> findAllByLastName();
+
 }
