@@ -140,7 +140,7 @@ public class EmployeeFormController {
 
         model.addAttribute("employees", employees);
 
-        return "list-employees";
+        return "employees/list-employees";
     }
 
     @GetMapping("/add-employee")
@@ -149,7 +149,7 @@ public class EmployeeFormController {
         addFormData(model);
         model.addAttribute("employee", new Employee());
 
-        return "add-employee";
+        return "employees/add-employee";
     }
 
     @PostMapping("/new-employee")
@@ -158,8 +158,7 @@ public class EmployeeFormController {
 
         if(bindingResult.hasErrors()) {
             addFormData(model);
-            model.addAttribute("employee", new Employee());
-            return "add-employee";
+            return "employees/add-employee";
         }
 
         employeeService.save(employee);
