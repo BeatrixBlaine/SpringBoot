@@ -84,9 +84,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
 
-                        // PUBLIC
-                        .requestMatchers("/").permitAll()
+                        // Employee Page
                         .anyRequest().authenticated()
+
+        ).formLogin(form ->
+                form
+                        .loginPage("/employees/login-page")
+                        .loginProcessingUrl("/authenticateTheUser")
+                        .permitAll()
         );
 
         // Use HTTP Basic Authentication

@@ -63,7 +63,9 @@
                                name="employeeId"
                                th:value="${tempEmployee.id}">
 
-                        <button type="submit" class="btn btn-danger btn-sm">
+                        <button type="submit"
+                                class="btn btn-danger btn-sm"
+                                onclick="if (!(confirm('Delete this employee?'))) return false">
                             Delete
                         </button>
 

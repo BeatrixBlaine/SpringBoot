@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/employees/")
+@RequestMapping("/employees")
 public class EmployeeFormController {
 
     // custom props
@@ -195,7 +195,7 @@ public class EmployeeFormController {
 
         if(bindingResult.hasErrors()) {
             addFormData(model);
-            return "employees/update-employee";
+            return "employees/update-form";
         }
 
         employeeService.update(employee);
@@ -209,6 +209,13 @@ public class EmployeeFormController {
         employeeService.deleteById(id);
 
         return "redirect:/employees/list";
+    }
+
+    // Login Form
+
+    @GetMapping("/login-page")
+    public String showLoginPage() {
+        return "employees/login-page";
     }
 
 }
