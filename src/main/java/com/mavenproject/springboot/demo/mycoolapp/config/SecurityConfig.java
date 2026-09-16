@@ -89,9 +89,11 @@ public class SecurityConfig {
 
         ).formLogin(form ->
                 form
-                        .loginPage("/employees/login-page")
+                        .loginPage("/login-page")
                         .loginProcessingUrl("/authenticateTheUser")
                         .permitAll()
+        ).logout(logout ->
+                logout.permitAll()
         );
 
         // Use HTTP Basic Authentication

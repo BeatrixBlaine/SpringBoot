@@ -211,11 +211,4 @@ public class EmployeeFormController {
         return "redirect:/employees/list";
     }
 
-    // Login Form
-
-    @GetMapping("/login-page")
-    public String showLoginPage() {
-        return "employees/login-page";
-    }
-
 }

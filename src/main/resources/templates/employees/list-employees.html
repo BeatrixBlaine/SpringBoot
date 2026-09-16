@@ -17,18 +17,23 @@
     <br>
     <h1>Employee Directory</h1>
     <hr>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <a th:href="@{/employees/add-employee}"
+           class="btn btn-primary btn-sm"
+           method="GET">Add Employee</a>
 
-    <a th:href="@{/employees/add-employee}"
-       type="button"
-       class="btn btn-primary btn-sm mb-3" method="GET">Add Employee</a>
+        <a th:href="@{/employees/list}"
+           class="btn btn-info btn-sm"
+           method="GET">Default Order</a>
 
-    <a th:href="@{/employees/list}"
-       type="button"
-       class="btn btn-info btn-sm mb-3" method="GET">Default Order</a>
+        <a th:href="@{/employees/list-by-lastname}"
+           class="btn btn-info btn-sm"
+           method="GET">Sort By Last Name</a>
 
-    <a th:href="@{/employees/list-by-lastname}"
-       type="button"
-       class="btn btn-info btn-sm mb-3" method="GET">Sort By Last Name</a>
+        <form th:action="@{/logout}" method="POST">
+            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+        </form>
+    </div>
 
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
