@@ -65,8 +65,13 @@ public class SecurityConfig {
         // Manage authorized user for HttpMethod
         http.authorizeHttpRequests(configurer ->
                 configurer
+                        // Employee Page & Owner Page
+                        .requestMatchers("/owner/**").hasRole("OWNER")
+                        .requestMatchers("/employees/add-employee").hasRole("MANAGER")
+                        .requestMatchers("/employees/update-employee").hasRole("MANAGER")
+
                         // PRIVATE
-                        // Employees
+                        // Employees API
                         .requestMatchers(HttpMethod.GET, "/api/employees").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/employees/**").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
                         .requestMatchers(HttpMethod.POST, "/api/employees").hasAnyRole("OWNER","MANAGER")
@@ -75,7 +80,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
 
-                        // Staff
+                        // Staff API
                         .requestMatchers(HttpMethod.GET, "/api/staffs").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/staffs/**").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
                         .requestMatchers(HttpMethod.POST, "/api/staffs").hasAnyRole("OWNER","MANAGER")
@@ -84,16 +89,29 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
 
-                        // Employee Page
                         .anyRequest().authenticated()
 
         ).formLogin(form ->
                 form
                         .loginPage("/login-page")
                         .loginProcessingUrl("/authenticateTheUser")
+                        .successHandler((request, response, authentication) -> {
+
+                            if (authentication.getAuthorities().stream()
+                                    .anyMatch(a -> a.getAuthority().equals("ROLE_OWNER"))) {
+
+                                response.sendRedirect("/owner/index");
+
+                            } else {
+
+                                response.sendRedirect("/employees/list");
+                            }
+                        })
                         .permitAll()
         ).logout(logout ->
                 logout.permitAll()
+        ).exceptionHandling(configurer ->
+                configurer.accessDeniedPage("/access-denied")
         );
 
         // Use HTTP Basic Authentication
