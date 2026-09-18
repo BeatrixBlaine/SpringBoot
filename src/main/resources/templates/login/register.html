@@ -32,6 +32,10 @@
             <input type="text"
                    th:field="*{username}"
                    class="form-control">
+            <div th:if="${#fields.hasErrors('username')}"
+                 th:errors="*{username}"
+                 class="text-danger">
+            </div>
         </div>
 
         <div class="mb-3">
@@ -40,6 +44,12 @@
             <input type="password"
                    th:field="*{password}"
                    class="form-control">
+
+            <div th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}"
+                 class="text-danger">
+            </div>
+
         </div>
 
         <div class="mb-3">
@@ -48,6 +58,12 @@
             <input type="password"
                    th:field="*{confirmPassword}"
                    class="form-control">
+
+            <div th:if="${#fields.hasErrors('confirmPassword')}"
+                 th:errors="*{confirmPassword}"
+                 class="text-danger">
+            </div>
+
         </div>
 
         <button type="submit" class="btn btn-primary">

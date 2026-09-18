@@ -2,9 +2,14 @@ package com.mavenproject.springboot.demo.mycoolapp.controller;
 
 import com.mavenproject.springboot.demo.mycoolapp.dto.RegistrationRequest;
 import com.mavenproject.springboot.demo.mycoolapp.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -15,6 +20,13 @@ public class LoginController {
 
     public LoginController(UserService userService) {
         this.userService = userService;
+    }
+
+    // remove leading and trailing white spaces
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
     @GetMapping("/")
@@ -45,9 +57,14 @@ public class LoginController {
 
     @PostMapping("/register")
     public String register(
-            @ModelAttribute("registrationRequest")
+            @Valid @ModelAttribute("registrationRequest")
             RegistrationRequest request,
+            BindingResult bindingResult,
             Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "login/register";
+        }
 
         if (!request.getPassword().equals(request.getConfirmPassword())) {
 
