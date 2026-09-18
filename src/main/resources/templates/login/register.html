@@ -18,6 +18,10 @@
     <h1>Create Account</h1>
     <hr>
 
+    <div th:if="${error}" class="alert alert-danger">
+        <span th:text="${error}"></span>
+    </div>
+
     <form th:action="@{/register}"
           th:object="${registrationRequest}"
           method="POST">
@@ -51,7 +55,8 @@
         </button>
 
     </form>
-
+    <br>
+    <a th:href="@{/login-page}">Already have an account? Login</a>
 </div>
 
 </body>

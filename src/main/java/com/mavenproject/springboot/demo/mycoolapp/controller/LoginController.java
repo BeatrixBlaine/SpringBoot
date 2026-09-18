@@ -46,14 +46,27 @@ public class LoginController {
     @PostMapping("/register")
     public String register(
             @ModelAttribute("registrationRequest")
-            RegistrationRequest request) {
+            RegistrationRequest request,
+            Model model) {
 
-        userService.registerUser(
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+
+            model.addAttribute("error", "Passwords do not match");
+
+            return "login/register";
+        }
+
+        boolean registered = userService.registerUser(
                 request.getUsername(),
                 request.getPassword()
         );
 
-        return "redirect:/login/login-page";
+        if (!registered) {
+            model.addAttribute("error", "Username is already taken.");
+            return "login/register";
+        }
+
+        return "redirect:/login-page?registered";
     }
 
 }

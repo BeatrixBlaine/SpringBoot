@@ -20,8 +20,13 @@ public class UserServiceImpl implements UserService{
         this.passwordEncoder = passwordEncoder;
     }
 
+
     @Override
-    public void registerUser(String username, String password) {
+    public boolean registerUser(String username, String password) {
+
+        if (userDetailsManager.userExists(username)) {
+            return false;
+        }
 
         UserDetails user = User.builder()
                 .username(username)
@@ -31,5 +36,6 @@ public class UserServiceImpl implements UserService{
 
         userDetailsManager.createUser(user);
 
+        return true;
     }
 }

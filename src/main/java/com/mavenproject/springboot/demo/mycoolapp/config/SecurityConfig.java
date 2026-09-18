@@ -74,6 +74,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(configurer ->
                 configurer
                         // Employee Page & Owner Page
+                        .requestMatchers("/login-page").permitAll()
                         .requestMatchers("/register").permitAll()
                         .requestMatchers("/owner/**").hasRole("OWNER")
                         .requestMatchers("/employees/add-employee").hasRole("MANAGER")
