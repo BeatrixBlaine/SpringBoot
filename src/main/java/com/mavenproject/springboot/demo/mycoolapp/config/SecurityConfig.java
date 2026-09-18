@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -40,6 +42,12 @@ public class SecurityConfig {
 
     } */
 
+    // Password Encoder
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     // JDBC Authentication - users stored in the database
     @Bean
     public UserDetailsManager users(DataSource dataSource) {
@@ -66,9 +74,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests(configurer ->
                 configurer
                         // Employee Page & Owner Page
+                        .requestMatchers("/register").permitAll()
                         .requestMatchers("/owner/**").hasRole("OWNER")
                         .requestMatchers("/employees/add-employee").hasRole("MANAGER")
                         .requestMatchers("/employees/update-employee").hasRole("MANAGER")
+                        .requestMatchers("/employees/delete").hasRole("MANAGER")
 
                         // PRIVATE
                         // Employees API
