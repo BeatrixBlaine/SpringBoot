@@ -29,6 +29,10 @@ public class Student {
     @Column(name="email")
     private String email;
 
+    @OneToOne
+    @JoinColumn(name="student_detail_id")
+    private StudentDetail studentDetail;
+
     // define constructors
     public Student(){
 
