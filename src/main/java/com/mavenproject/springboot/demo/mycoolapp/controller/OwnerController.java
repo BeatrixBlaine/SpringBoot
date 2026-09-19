@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/owner")
-public class OwnerPageController {
+public class OwnerController {
 
     @GetMapping("/index")
     public String home() {

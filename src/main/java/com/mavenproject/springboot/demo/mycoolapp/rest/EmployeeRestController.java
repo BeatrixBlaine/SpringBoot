@@ -11,13 +11,13 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class EmployeeController {
+public class EmployeeRestController {
 
     private final EmployeeService employeeService;
     private final JsonMapper jsonMapper;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, JsonMapper jsonMapper) {
+    public EmployeeRestController(EmployeeService employeeService, JsonMapper jsonMapper) {
         this.employeeService = employeeService;
         this.jsonMapper = jsonMapper;
     }

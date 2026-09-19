@@ -17,7 +17,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/employees")
-public class EmployeePageController {
+public class EmployeeController {
 
     // custom props
     @Value("${countries}")
@@ -34,7 +34,7 @@ public class EmployeePageController {
 
     // Employee Injection
     @Autowired
-    public EmployeePageController(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
