@@ -1,6 +1,8 @@
 package com.mavenproject.springboot.demo.mycoolapp.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 
 // Annotations for ORM
 @Entity
@@ -14,12 +16,16 @@ public class Student {
     @Column(name="id")
     private int id;
 
+    @NotNull(message = "First name is required")
     @Column(name="first_name")
     private String firstName;
 
+    @NotNull(message = "Last name is required")
     @Column(name="last_name")
     private String lastName;
 
+    @NotNull(message = "Email is required")
+    @Email
     @Column(name="email")
     private String email;
 

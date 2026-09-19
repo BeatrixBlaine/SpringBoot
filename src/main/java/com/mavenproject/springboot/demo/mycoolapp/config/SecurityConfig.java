@@ -91,14 +91,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
 
-                        // Staff API
-                        .requestMatchers(HttpMethod.GET, "/api/staffs").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
-                        .requestMatchers(HttpMethod.GET, "/api/staffs/**").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
-                        .requestMatchers(HttpMethod.POST, "/api/staffs").hasAnyRole("OWNER","MANAGER")
-                        .requestMatchers(HttpMethod.POST, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
-                        .requestMatchers(HttpMethod.PUT, "/api/staffs").hasAnyRole("OWNER","MANAGER")
-                        .requestMatchers(HttpMethod.PATCH, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/staffs/**").hasAnyRole("OWNER","MANAGER")
+
 
                         .anyRequest().authenticated()
 

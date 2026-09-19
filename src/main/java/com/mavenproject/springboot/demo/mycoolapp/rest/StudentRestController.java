@@ -3,7 +3,10 @@ package com.mavenproject.springboot.demo.mycoolapp.rest;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import com.mavenproject.springboot.demo.mycoolapp.exception.StudentNotFoundException;
 import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,6 +55,23 @@ public class StudentRestController {
         }
 
         return students;
+    }
+
+    @DeleteMapping("/students/{studentId}")
+    public String deleteStudent(@PathVariable int studentId) {
+
+        studentService.delete(studentId);
+
+        return "Student deleted with id - " + studentId;
+    }
+
+    @PutMapping("/students/{studentId}")
+    public Student student(@PathVariable int studentId,
+                           @Valid @RequestBody Student student) {
+
+        student.setId(studentId);
+
+        return studentService.update(student);
     }
 
 
