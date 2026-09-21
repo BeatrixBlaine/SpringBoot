@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
+
 // Annotations for ORM
 @Entity
 // Annotations that connecting to table "student"
@@ -34,16 +36,30 @@ public class Student {
     @JoinColumn(name="student_detail_id", nullable = false)
     private StudentDetail studentDetail;
 
+    @OneToMany(
+            mappedBy = "student",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REFRESH})
+    private List<Course> courses;
+
     // define constructors
     public Student(){
 
     }
 
-    public Student(String firstName, String lastName, String email, StudentDetail studentDetail) {
+    public Student(String firstName, String lastName, String email, StudentDetail studentDetail, List<Course> courses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.studentDetail = studentDetail;
+        this.courses = courses;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     public StudentDetail getStudentDetail() {
@@ -89,6 +105,7 @@ public class Student {
 
     // define toString() method
 
+
     @Override
     public String toString() {
         return "Student{" +
@@ -96,6 +113,7 @@ public class Student {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", studentDetail=" + studentDetail +
                 '}';
     }
 }

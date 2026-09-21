@@ -27,7 +27,7 @@ public class StudentDetail {
     private LocalDate dateOfBirth;
 
     // Bi-directional
-    @OneToOne(mappedBy = "studentDetail")
+    @OneToOne(mappedBy = "studentDetail", cascade = CascadeType.ALL)
     @JsonIgnore
     private Student student;
 
