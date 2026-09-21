@@ -1,8 +1,9 @@
 package com.mavenproject.springboot.demo.mycoolapp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 // Annotations for ORM
 @Entity
@@ -16,21 +17,21 @@ public class Student {
     @Column(name="id")
     private int id;
 
-    @NotNull(message = "First name is required")
+    @NotBlank(message = "First name is required")
     @Column(name="first_name")
     private String firstName;
 
-    @NotNull(message = "Last name is required")
+    @NotBlank(message = "Last name is required")
     @Column(name="last_name")
     private String lastName;
 
-    @NotNull(message = "Email is required")
+    @NotBlank(message = "Email is required")
     @Email
     @Column(name="email")
     private String email;
 
-    @OneToOne
-    @JoinColumn(name="student_detail_id")
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JoinColumn(name="student_detail_id", nullable = false)
     private StudentDetail studentDetail;
 
     // define constructors
@@ -38,10 +39,19 @@ public class Student {
 
     }
 
-    public Student(String firstName, String lastName, String email) {
+    public Student(String firstName, String lastName, String email, StudentDetail studentDetail) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.studentDetail = studentDetail;
+    }
+
+    public StudentDetail getStudentDetail() {
+        return studentDetail;
+    }
+
+    public void setStudentDetail(StudentDetail studentDetail) {
+        this.studentDetail = studentDetail;
     }
 
     // define getters/setters

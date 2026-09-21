@@ -12,6 +12,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 @Configuration
 public class SecurityConfig {
@@ -91,6 +92,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
                         .requestMatchers(HttpMethod.DELETE, "/api/employees/**").hasAnyRole("OWNER","MANAGER")
 
+                        // Students API
+                        .requestMatchers(HttpMethod.GET, "/api/students").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.GET, "/api/students/**").hasAnyRole("EMPLOYEE","OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/students").hasAnyRole("OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.POST, "/api/students/**").hasAnyRole("OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.PUT, "/api/students/**").hasAnyRole("OWNER","MANAGER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/students/**").hasAnyRole("OWNER","MANAGER")
+
 
 
                         .anyRequest().authenticated()
@@ -102,7 +111,7 @@ public class SecurityConfig {
                         .successHandler((request, response, authentication) -> {
 
                             if (authentication.getAuthorities().stream()
-                                    .anyMatch(a -> a.getAuthority().equals("ROLE_OWNER"))) {
+                                    .anyMatch(a -> Objects.equals(a.getAuthority(), "ROLE_OWNER"))) {
 
                                 response.sendRedirect("/owner/index");
 

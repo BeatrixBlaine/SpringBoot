@@ -1,9 +1,9 @@
 package com.mavenproject.springboot.demo.mycoolapp.service;
 
 import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAO;
-import com.mavenproject.springboot.demo.mycoolapp.dao.StudentDAOImpl;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +13,7 @@ public class StudentServiceImpl implements StudentService{
 
     private final StudentDAO studentDAO;
 
+    @Autowired
     public StudentServiceImpl(StudentDAO studentDAO) {
         this.studentDAO = studentDAO;
     }
@@ -57,7 +58,7 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     @Transactional
-    public int deleteAll() {
-        return studentDAO.deleteAll();
+    public void deleteAll() {
+        studentDAO.deleteAll();
     }
 }

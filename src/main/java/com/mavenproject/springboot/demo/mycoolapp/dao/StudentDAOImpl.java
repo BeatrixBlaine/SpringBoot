@@ -76,11 +76,10 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public int deleteAll() {
+    public void deleteAll() {
 
-        int numRowsDeleted = entityManager.createQuery("DELETE FROM Student").executeUpdate();
+        entityManager.createNativeQuery("TRUNCATE TABLE student").executeUpdate();
 
-        return numRowsDeleted;
     }
 
 

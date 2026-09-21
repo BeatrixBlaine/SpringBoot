@@ -14,6 +14,6 @@ public interface StudentService {
     List<Student> findByLastName(String theLastName);
     Student update(Student theStudent);
     void delete(Integer id);
-    int deleteAll();
+    void deleteAll();
 
 }
