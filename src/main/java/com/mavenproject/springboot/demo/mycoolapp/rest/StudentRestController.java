@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -44,6 +45,7 @@ public class StudentRestController {
 
         Student student = new Student();
 
+        student.setId(0);
         student.setFirstName(request.getFirstName());
         student.setLastName(request.getLastName());
         student.setEmail(request.getEmail());
@@ -63,10 +65,21 @@ public class StudentRestController {
     }
 
     @PostMapping("/students/batch")
-    public List<Student> addStudents(@RequestBody List<Student> students) {
+    public List<Student> addStudents(@RequestBody List<StudentRequest> requests) {
 
-        for (Student student : students) {
+        List<Student> students = new ArrayList<>();
+
+        for (StudentRequest request : requests) {
+            Student student = new Student();
+
+            student.setId(0);
+            student.setFirstName(request.getFirstName());
+            student.setLastName(request.getLastName());
+            student.setEmail(request.getEmail());
+            student.setStudentDetail(request.getStudentDetail());
             studentService.save(student);
+
+            students.add(student);
         }
 
         return students;
