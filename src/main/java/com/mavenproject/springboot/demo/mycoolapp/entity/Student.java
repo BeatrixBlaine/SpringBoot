@@ -38,7 +38,7 @@ public class Student {
 
     @OneToMany(
             mappedBy = "student",
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REFRESH})
+            cascade = CascadeType.ALL) // delete student delete the courses too, just for learning
     private List<Course> courses;
 
     // define constructors

@@ -15,12 +15,7 @@ public class Course {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne(cascade = {
-            CascadeType.REFRESH,
-            CascadeType.MERGE,
-            CascadeType.PERSIST,
-            CascadeType.DETACH
-    })
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_id", nullable = true)
     @JsonIgnore
     private Student student;

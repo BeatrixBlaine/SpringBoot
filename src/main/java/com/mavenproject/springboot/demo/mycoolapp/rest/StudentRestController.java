@@ -95,9 +95,14 @@ public class StudentRestController {
 
     @PutMapping("/students/{studentId}")
     public Student student(@PathVariable int studentId,
-                           @Valid @RequestBody Student student) {
+                           @Valid @RequestBody StudentRequest request) {
 
-        student.setId(studentId);
+        Student student = studentService.findById(studentId);
+
+        student.setFirstName(request.getFirstName());
+        student.setLastName(request.getLastName());
+        student.setEmail(request.getEmail());
+        student.setStudentDetail(request.getStudentDetail());
 
         return studentService.update(student);
     }
