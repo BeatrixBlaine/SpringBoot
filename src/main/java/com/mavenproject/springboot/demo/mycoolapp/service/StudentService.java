@@ -15,5 +15,6 @@ public interface StudentService {
     Student update(Student theStudent);
     void delete(Integer id);
     void deleteAll();
+    Student assignCourses(int studentId, List<Integer> courseIds);
 
 }

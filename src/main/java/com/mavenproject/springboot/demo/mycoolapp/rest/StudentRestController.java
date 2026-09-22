@@ -1,5 +1,7 @@
 package com.mavenproject.springboot.demo.mycoolapp.rest;
 
+import com.mavenproject.springboot.demo.mycoolapp.dto.StudentCourseRequest;
+import com.mavenproject.springboot.demo.mycoolapp.dto.StudentRequest;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import com.mavenproject.springboot.demo.mycoolapp.exception.StudentNotFoundException;
 import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
@@ -38,11 +40,26 @@ public class StudentRestController {
     }
 
     @PostMapping("/students")
-    public Student addStudent(@RequestBody Student student) {
+    public Student addStudent(@Valid @RequestBody StudentRequest request) {
+
+        Student student = new Student();
+
+        student.setFirstName(request.getFirstName());
+        student.setLastName(request.getLastName());
+        student.setEmail(request.getEmail());
+        student.setStudentDetail(request.getStudentDetail());
 
         studentService.save(student);
 
         return student;
+    }
+
+    @PutMapping("/students/{studentId}/courses")
+    public Student assignCourses(
+            @PathVariable int studentId,
+            @RequestBody StudentCourseRequest request) {
+
+        return studentService.assignCourses(studentId, request.getCourseIds());
     }
 
     @PostMapping("/students/batch")

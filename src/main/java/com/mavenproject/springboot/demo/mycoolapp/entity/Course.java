@@ -15,12 +15,21 @@ public class Course {
     @Column(name = "title")
     private String title;
 
-    @ManyToOne
+    @ManyToOne(cascade = {
+            CascadeType.REFRESH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.DETACH
+    })
     @JoinColumn(name = "student_id", nullable = true)
     @JsonIgnore
     private Student student;
 
     public Course(){}
+
+    public Course(String title) {
+        this.title = title;
+    }
     public Course(String title, Student student) {
         this.title = title;
         this.student = student;

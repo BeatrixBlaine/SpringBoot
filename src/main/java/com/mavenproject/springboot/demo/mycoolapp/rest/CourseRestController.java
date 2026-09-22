@@ -2,9 +2,7 @@ package com.mavenproject.springboot.demo.mycoolapp.rest;
 
 import com.mavenproject.springboot.demo.mycoolapp.dto.CourseRequest;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Course;
-import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
 import com.mavenproject.springboot.demo.mycoolapp.service.CourseService;
-import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +13,10 @@ import java.util.List;
 public class CourseRestController {
 
     private final CourseService courseService;
-    private final StudentService studentService;
 
     @Autowired
-    public CourseRestController(CourseService courseService, StudentService studentService) {
+    public CourseRestController(CourseService courseService) {
         this.courseService = courseService;
-        this.studentService = studentService;
     }
 
     // GET /api/courses
@@ -43,8 +39,6 @@ public class CourseRestController {
         course.setId(0);
         course.setTitle(request.getTitle());
 
-        Student student = studentService.findById(request.getStudentId());
-        course.setStudent(student);
 
         return courseService.save(course);
     }
