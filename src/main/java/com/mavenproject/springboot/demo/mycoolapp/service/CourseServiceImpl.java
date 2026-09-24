@@ -44,6 +44,13 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public void deleteById(int id) {
+
+        Optional<Course> tempCourse = courseRepository.findById(id);
+
+        if(tempCourse.isEmpty()) {
+            throw new RuntimeException("Course ID not found - " + id);
+        }
+
         courseRepository.deleteById(id);
     }
 }

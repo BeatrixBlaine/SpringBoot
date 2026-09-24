@@ -1,8 +1,11 @@
 package com.mavenproject.springboot.demo.mycoolapp.rest;
 
 import com.mavenproject.springboot.demo.mycoolapp.dto.CourseRequest;
+import com.mavenproject.springboot.demo.mycoolapp.dto.ReviewRequest;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Course;
+import com.mavenproject.springboot.demo.mycoolapp.entity.Review;
 import com.mavenproject.springboot.demo.mycoolapp.service.CourseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,20 +47,35 @@ public class CourseRestController {
     }
 
     // PUT /api/courses
-    @PutMapping("/courses")
-    public Course updateCourse(@RequestBody Course course) {
-        return courseService.save(course);
+    @PutMapping("/courses/{courseId}")
+    public Course updateCourse(@PathVariable int courseId, @RequestBody CourseRequest request) {
+
+        Course tempCourse = courseService.findById(courseId);
+
+        tempCourse.setTitle(request.getTitle());
+
+        return courseService.save(tempCourse);
     }
 
     // DELETE /api/courses/{id}
     @DeleteMapping("/courses/{id}")
     public void deleteCourse(@PathVariable int id) {
-        Course course = courseService.findById(id);
-
-        if (course == null) {
-            throw new RuntimeException("Course ID not found - " + id);
-        }
-
         courseService.deleteById(id);
     }
+
+    @PostMapping("/courses/{id}/reviews")
+    public Course addReviews(@PathVariable int id,
+                             @Valid @RequestBody ReviewRequest request) {
+
+
+        Course tempCourse = courseService.findById(id);
+
+        Review tempReview = new Review();
+        tempReview.setComment(request.getComment());
+
+        tempCourse.getReviews().add(tempReview);
+
+        return courseService.save(tempCourse);
+    }
+
 }

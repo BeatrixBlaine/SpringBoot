@@ -3,6 +3,8 @@ package com.mavenproject.springboot.demo.mycoolapp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "course")
 public class Course {
@@ -20,14 +22,28 @@ public class Course {
     @JsonIgnore
     private Student student;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private List<Review> reviews;
+
     public Course(){}
 
     public Course(String title) {
         this.title = title;
     }
-    public Course(String title, Student student) {
+
+    public Course(String title, Student student, List<Review> reviews) {
         this.title = title;
         this.student = student;
+        this.reviews = reviews;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 
     public int getId() {
@@ -60,6 +76,7 @@ public class Course {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", student=" + student +
+                ", reviews=" + reviews +
                 '}';
     }
 }
