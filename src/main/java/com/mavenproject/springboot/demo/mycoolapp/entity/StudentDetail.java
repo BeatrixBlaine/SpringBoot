@@ -26,7 +26,7 @@ public class StudentDetail {
     @Column(name="date_of_birth")
     private LocalDate dateOfBirth;
 
-    // Bi-directional
+    // Bi-directional, can be remove safely if you want Uni-directional
     @OneToOne(mappedBy = "studentDetail", cascade = CascadeType.ALL)
     @JsonIgnore
     private Student student;

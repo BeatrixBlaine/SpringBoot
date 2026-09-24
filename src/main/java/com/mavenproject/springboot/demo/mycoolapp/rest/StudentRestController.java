@@ -65,7 +65,7 @@ public class StudentRestController {
     }
 
     @PostMapping("/students/batch")
-    public List<Student> addStudents(@RequestBody List<StudentRequest> requests) {
+    public List<Student> addStudents(@Valid @RequestBody List<StudentRequest> requests) {
 
         List<Student> students = new ArrayList<>();
 
