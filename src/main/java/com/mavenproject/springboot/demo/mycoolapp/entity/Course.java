@@ -23,7 +23,7 @@ public class Course {
     private Student student;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id", nullable = true)
     private List<Review> reviews;
 
     public Course(){}
