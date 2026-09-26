@@ -10,6 +10,7 @@ import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
 import com.mavenproject.springboot.demo.mycoolapp.service.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -116,20 +117,14 @@ public class StudentRestController {
     public Student addSubjectToStudent(@PathVariable int studentId,
                                        @Valid @RequestBody StudentSubjectRequest request) {
 
-        Student tempStudent = studentService.findById(studentId);
+        return studentService.assignSubjects(studentId, request.getSubjectIds());
+    }
 
-        List<Integer> subjectIds = request.getSubjectIds();
+    @DeleteMapping("/students/{studentId}/subjects")
+    public Student removeSubjects(@PathVariable int studentId,
+                                  @Valid @RequestBody StudentSubjectRequest request){
 
-        for (Integer subjectId : subjectIds) {
-
-            Subject subject = subjectService.findById(subjectId);
-            tempStudent.getSubjects().add(subject);
-
-        }
-
-        studentService.save(tempStudent);
-
-        return tempStudent;
+        return studentService.removeSubjects(studentId, request.getSubjectIds());
     }
 
 

@@ -12,11 +12,9 @@ import java.util.Optional;
 public class SubjectServiceImpl implements SubjectService{
 
     private final SubjectRepository subjectRepository;
-    private final StudentService studentService;
 
-    public SubjectServiceImpl(SubjectRepository subjectRepository, StudentService studentService) {
+    public SubjectServiceImpl(SubjectRepository subjectRepository) {
         this.subjectRepository = subjectRepository;
-        this.studentService = studentService;
     }
 
     @Override
