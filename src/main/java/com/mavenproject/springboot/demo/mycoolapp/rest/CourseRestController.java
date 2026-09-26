@@ -67,13 +67,11 @@ public class CourseRestController {
     public Course addReviews(@PathVariable int id,
                              @Valid @RequestBody ReviewRequest request) {
 
-
+        // find the course
         Course tempCourse = courseService.findById(id);
 
-        Review tempReview = new Review();
-        tempReview.setComment(request.getComment());
-
-        tempCourse.getReviews().add(tempReview);
+        // input the comment
+        tempCourse.getReviews().add(new Review(request.getComment()));
 
         return courseService.save(tempCourse);
     }

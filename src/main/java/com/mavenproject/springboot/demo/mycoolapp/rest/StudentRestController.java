@@ -2,9 +2,12 @@ package com.mavenproject.springboot.demo.mycoolapp.rest;
 
 import com.mavenproject.springboot.demo.mycoolapp.dto.StudentCourseRequest;
 import com.mavenproject.springboot.demo.mycoolapp.dto.StudentRequest;
+import com.mavenproject.springboot.demo.mycoolapp.dto.StudentSubjectRequest;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
+import com.mavenproject.springboot.demo.mycoolapp.entity.Subject;
 import com.mavenproject.springboot.demo.mycoolapp.exception.StudentNotFoundException;
 import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
+import com.mavenproject.springboot.demo.mycoolapp.service.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +19,13 @@ import java.util.List;
 @RequestMapping("/api")
 public class StudentRestController {
 
-    private final StudentService studentService;// make sure it's final
+    private final StudentService studentService;
+    private final SubjectService subjectService;// make sure it's final
 
     @Autowired
-    public StudentRestController(StudentService studentService) {
+    public StudentRestController(StudentService studentService, SubjectService subjectService) {
         this.studentService = studentService;
+        this.subjectService = subjectService;
     }
 
     @GetMapping("/students")
@@ -105,6 +110,26 @@ public class StudentRestController {
         student.setStudentDetail(request.getStudentDetail());
 
         return studentService.update(student);
+    }
+
+    @PostMapping("/students/{studentId}/subjects")
+    public Student addSubjectToStudent(@PathVariable int studentId,
+                                       @Valid @RequestBody StudentSubjectRequest request) {
+
+        Student tempStudent = studentService.findById(studentId);
+
+        List<Integer> subjectIds = request.getSubjectIds();
+
+        for (Integer subjectId : subjectIds) {
+
+            Subject subject = subjectService.findById(subjectId);
+            tempStudent.getSubjects().add(subject);
+
+        }
+
+        studentService.save(tempStudent);
+
+        return tempStudent;
     }
 
 

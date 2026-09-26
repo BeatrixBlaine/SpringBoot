@@ -57,6 +57,11 @@ public class StudentServiceImpl implements StudentService{
     @Override
     @Transactional
     public void delete(Integer id) {
+
+        Student student = studentDAO.findById(id);
+
+        student.getSubjects().clear();
+
         studentDAO.delete(id);
     }
 

@@ -41,17 +41,40 @@ public class Student {
             cascade = CascadeType.ALL) // delete student delete the courses too, just for learning
     private List<Course> courses;
 
+    @ManyToMany(cascade = {
+            CascadeType.DETACH,
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH
+    })
+    @JoinTable(
+            name = "student_subject",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
+    )
+    private List<Subject> subjects;
+
     // define constructors
     public Student(){
 
     }
 
-    public Student(String firstName, String lastName, String email, StudentDetail studentDetail, List<Course> courses) {
+    public Student(String firstName, String lastName, String email, StudentDetail studentDetail, List<Course> courses, List<Subject> subjects) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.studentDetail = studentDetail;
         this.courses = courses;
+        this.subjects = subjects;
+    }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
     }
 
     public List<Course> getCourses() {
