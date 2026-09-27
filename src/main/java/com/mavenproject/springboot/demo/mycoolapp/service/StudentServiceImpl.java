@@ -66,6 +66,7 @@ public class StudentServiceImpl implements StudentService{
 
         Student student = studentDAO.findById(id);
 
+        // remove the current existed subjects in the student
         student.getSubjects().clear();
 
         studentDAO.delete(id);
@@ -134,6 +135,8 @@ public class StudentServiceImpl implements StudentService{
             // add list of subject id (integer) to the declared List
             if(subjectIds.contains(subject.getId())) {
                 subjectsToRemove.add(subject);
+            } else {
+                throw new RuntimeException("Subject does not exist in Student: " + student.getFirstName());
             }
 
         }

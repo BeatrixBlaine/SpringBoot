@@ -4,13 +4,10 @@ import com.mavenproject.springboot.demo.mycoolapp.dto.StudentCourseRequest;
 import com.mavenproject.springboot.demo.mycoolapp.dto.StudentRequest;
 import com.mavenproject.springboot.demo.mycoolapp.dto.StudentSubjectRequest;
 import com.mavenproject.springboot.demo.mycoolapp.entity.Student;
-import com.mavenproject.springboot.demo.mycoolapp.entity.Subject;
 import com.mavenproject.springboot.demo.mycoolapp.exception.StudentNotFoundException;
 import com.mavenproject.springboot.demo.mycoolapp.service.StudentService;
-import com.mavenproject.springboot.demo.mycoolapp.service.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,12 +18,11 @@ import java.util.List;
 public class StudentRestController {
 
     private final StudentService studentService;
-    private final SubjectService subjectService;// make sure it's final
+    // make sure it's final
 
     @Autowired
-    public StudentRestController(StudentService studentService, SubjectService subjectService) {
+    public StudentRestController(StudentService studentService) {
         this.studentService = studentService;
-        this.subjectService = subjectService;
     }
 
     @GetMapping("/students")
@@ -120,7 +116,7 @@ public class StudentRestController {
         return studentService.assignSubjects(studentId, request.getSubjectIds());
     }
 
-    @DeleteMapping("/students/{studentId}/subjects")
+    @DeleteMapping("/students/{studentId}/subjects/delete")
     public Student removeSubjects(@PathVariable int studentId,
                                   @Valid @RequestBody StudentSubjectRequest request){
 
