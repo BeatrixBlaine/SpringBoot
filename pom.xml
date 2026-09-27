@@ -35,6 +35,12 @@
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
 
+		<!-- Aspect Oriented Programming (logging) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aspectj</artifactId>
+		</dependency>
+
 		<!-- MAKE THE SERVER AUTO RESTARTING IF SOMETHING'S CHANGES -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
