@@ -20,9 +20,16 @@ public class LoggingAspect {
     }
 
     // logging every update method
+    // execution(modifier, return type, declaring type, method name, parameter)
     @Before("execution(* com.mavenproject.springboot.demo.mycoolapp.service.*.update(..))")
     public void logBeforeUpdate() {
         System.out.println("About to update data...");
+    }
+
+    // Pointcut declarations
+    @Before("logBeforeUpdate()")
+    public void beforeLog() {
+        System.out.println("Updating ...");
     }
 
 }
